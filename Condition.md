@@ -1,5 +1,3 @@
-
-
 # Condition
 
 
@@ -67,7 +65,7 @@
 
 
 ```
-(ARRAY) ALL PLAYERS ON OBJECTIVE
+(ARRAY) ALL PLAYERS ON OBJECTIVE()
 ```
 
 - 화물 확보 또는 거점을 점령중인(팀 또는 경기 내) 모든 플레이어가 있는 배열
@@ -689,7 +687,15 @@
 (BOOL) IS GAME IN PROGRESS()
 ```
 
-- 
+- 게임이 진행중인지 여부
+
+
+
+예)
+
+> IS GMAE IN PROGRESS == TRUE
+>
+> 게임이 진행 중인지
 
 
 
@@ -715,8 +721,13 @@
 (BOOL) IS IN LINE OF SIGHT(START POS, END POS, BARRIEDRS)
 ```
 
-- START POS - VECTOR
-- END POS - VECTOR
+
+
+예)
+
+> IS IN LINE OF SIGHT(PLAYERS IN SLOT(0, 1팀), EVNET PLAYER, BARRIERS DO NOT BLOCK LOS) == TRUE
+>
+> 1팀의 0번째 슬롯의 플레이어의 위치와 EVENT PLAYER의 위치 사이에 막혀있는 게 없다면
 
 
 
@@ -744,6 +755,16 @@
 ```
 
 - LOCATION - VECTOR
+
+
+
+예)
+
+> IS IN VIEW ANGLE(PLAYERS IN SLOT(0, 1팀), EVENT PLAYER, 20) == TRUE
+>
+> 1팀의 0번째 슬롯의 플레이어의 20도각도에서 EVENT PLAYER가 존재한다면
+
+
 
 
 
@@ -780,6 +801,14 @@
 ```
 
 - PLAYER가 땅위에 있는지 여부
+
+
+
+예)
+
+>  IS ON GROUND(EVENT PLAYER) == TRUE
+>
+>  IS ON GROUND(EVENT PLAYER) == FALSE
 
 
 
@@ -960,7 +989,15 @@
 (VALUE) MATCH TIME()
 ```
 
-- 
+- 게임 남은시간
+
+
+
+예)
+
+> MATCH TIME  == 0
+>
+> 게임 남은시간이 0초이면
 
 
 
@@ -1108,6 +1145,14 @@
 ```
 
 - 팀 도는 경기에서 생존한 플레이어 수
+
+
+
+예)
+
+> NUMBER OF LIVING PLAYERS(2팀) == 0
+>
+> 2팀에서 살아남은 PLAYER가 존재 하지 않으면
 
 
 
