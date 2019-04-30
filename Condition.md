@@ -40,7 +40,7 @@
 
 
 ```
-(ARRAY) ALL LIVING PLAYERS(TEAM
+(ARRAY) ALL LIVING PLAYERS(TEAM)
 ```
 
 - 팀 또는 경기내 생존한 모든 플레이어가 있는 배열

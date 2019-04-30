@@ -1,0 +1,172 @@
+# 1. 초고열 불장판
+
+발바닥에 발이 닿으면 불에 타버립니다
+
+
+
+## 규칙1. START BURNING IF ON GROUND
+
+땅위에 있으면 불에 타기 시작함
+
+
+
+EVENT (이벤트)
+
+- ONGOING - EACH PLAYER
+- TEAM : ALL
+- PLAYER : ALL
+
+
+
+CONDITIONS (조건)
+
+- IS ON GROUND(EVENT PLAYER) == TRUE
+
+
+
+ACTIONS (행동)
+
+- SET STATUS(EVENT PLAYER, NULL, BURNING, 10000)
+- START DAMAGE OVER TIME(EVENT PLAYER, NULL, 9999, 30)
+
+
+
+## 규칙2.  STOP BURNING IF NOT ON GROUND
+
+땅위에 있지 않으면 불타는 것이 멈춤
+
+
+
+EVENT(이벤트)
+
+- ONGOING - EACH PLAYER
+- TEAM : ALL
+- PLAYER : ALL
+
+
+
+CONDITIONS(조건)
+
+- IS ON GROUND(EVENT PLAYER) == FALSE
+
+
+
+ACTIONS(행동)
+
+- CLEAR STATUS(EVENT PLAYER, BURNING)
+- STOP ALL DAMAGE OVE RTIME(EVENT PLAYER)
+
+
+
+
+
+
+
+
+
+# 3. 술래잡기
+
+위도우메이커 1명과 트레이서 6명이 격돌합니다.
+
+단, 위도우 메이커는 트레이서를 쳐다만 봐도 처치할 수 있죠.
+
+트레이서들은 위도우메이커의 시야에 들어오지 않아야 승리할 수 있습니다.
+
+
+
+## 규칙1. KEEP THE GAME MODE ITSELF FROM DECLARING THE WINNER
+
+승리규칙을 새로 정함
+
+
+
+EVENT(이벤트)
+
+- ONGOING - GLOBAL
+
+
+
+ACTIONS(행동)
+
+- DISABLE BUILT-IN GAME MODE COMPLETION
+
+
+
+## 규칙2. IF A HIDING PLAYER(TEAM 2) IS IN VIEW OF THE SEEKER (TEAM 1), THEN THEY TAKE DAMAGE
+
+위도우메이커의 시야에 트레이서가 존재하면 트레이서는 피해를 받음
+
+
+
+EVENT
+
+- ONGING - EACH PLAYER
+- TEAM : 2팀
+- PLAYER : ALL
+
+
+
+CONDITIONS
+
+- IS IN VIEW ANGLE(PLAYERS IN SLOT(0, 1팀), EVENT PLAYER, 20) == TRUE
+- IS IN LINE OF SIGHT(PLAYERS IN SLOT(0, 1팀), EVNET PLAYER, BARRIERS DO NOT BLOCK LOS) == TRUE
+
+
+
+ACTIONS
+
+- DAMAGE(EVENT PLAYER, PLAYERS IN SLOT(0, 1팀), 25)
+- WAIT(0.250, ABORT WHEN FALSE)
+- LOOP
+
+
+
+## 규칙3. IF NO HIDERS ARE ALIVE, THEN THE SEEKER(TEAM 1) WINS!
+
+트레이서가 모두 죽었다면 위도우메이커 승리
+
+
+
+EVENT
+
+- ONGOING - GLOBAL
+
+
+
+CONDITIONS
+
+- IS GMAE IN PROGRESS == TRUE
+- NUMBER OF LIVING PLAYERS(2팀) == 0
+
+
+
+ACTIONS
+
+- DECLARE ROUND VICTORY(1팀)
+
+
+
+
+
+## 규칙4. IF TIME RUNS OUT, THEN THE HIDERS(TEAM 2) WIN!
+
+시간초과되면 트레이서팀 승리
+
+
+
+EVENT
+
+- ONGOING - GLOBAL
+
+
+
+CONDITIONS
+
+- IS GMAE IN PROGRESS == TRUE
+- MATCH TIME == 0
+
+
+
+ACTIONS
+
+- DECLARE ROUND VICTORY(2팀)
